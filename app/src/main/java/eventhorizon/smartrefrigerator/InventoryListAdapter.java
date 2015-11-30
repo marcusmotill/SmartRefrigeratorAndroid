@@ -1,10 +1,11 @@
 package eventhorizon.smartrefrigerator;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,8 +14,21 @@ import java.util.List;
 /**
  * Created by marcusmotill on 11/28/15.
  */
-public class InventoryListAdapter extends BaseAdapter {
 
+public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdapter.InventoryItemViewHolder> {
+
+    public static class InventoryItemViewHolder extends RecyclerView.ViewHolder {
+        CardView cv;
+        TextView itemName;
+        ImageView thumbnail;
+
+        InventoryItemViewHolder(View itemView) {
+            super(itemView);
+            cv = (CardView) itemView.findViewById(R.id.cvInventoryItem);
+            itemName = (TextView) itemView.findViewById(R.id.tvItemName);
+            thumbnail = (ImageView) itemView.findViewById(R.id.ivThumbnail);
+        }
+    }
 
     private List<RefrigeratorObject> refrigeratorObjectList;
     private Context context;
@@ -24,15 +38,27 @@ public class InventoryListAdapter extends BaseAdapter {
         this.context = context;
     }
 
+    @Override
+    public InventoryItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.inventory_list_item, viewGroup, false);
+        InventoryItemViewHolder pvh = new InventoryItemViewHolder(v);
+        return pvh;
+    }
+
 
     @Override
-    public int getCount() {
-        return refrigeratorObjectList.size();
+    public void onBindViewHolder(InventoryItemViewHolder inventoryItemViewHolder, int i) {
+        RefrigeratorObject refrigeratorObject = refrigeratorObjectList.get(i);
+
+        inventoryItemViewHolder.itemName.setText(refrigeratorObject.getItemName());
+        if (refrigeratorObject.getThumbnailName() != null)
+            inventoryItemViewHolder.thumbnail.setImageResource(getResourceId(refrigeratorObject.getThumbnailName(), "drawable", context.getPackageName()));
+
     }
 
     @Override
-    public Object getItem(int position) {
-        return refrigeratorObjectList.get(position);
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
@@ -41,21 +67,10 @@ public class InventoryListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        RefrigeratorObject refrigeratorObject = (RefrigeratorObject) getItem(position);
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View rowView = inflater.inflate(R.layout.inventory_list_item, parent, false);
-        TextView itemName = (TextView) rowView.findViewById(R.id.tvItemName);
-        ImageView thumbnail = (ImageView) rowView.findViewById(R.id.ivThumbnail);
-
-        itemName.setText(refrigeratorObject.getItemName());
-        if (refrigeratorObject.getThumbnailName() != null)
-            thumbnail.setImageResource(getResourceId(refrigeratorObject.getThumbnailName(), "drawable", context.getPackageName()));
-
-        return rowView;
+    public int getItemCount() {
+        return refrigeratorObjectList.size();
     }
+
 
     public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
         try {
@@ -67,3 +82,4 @@ public class InventoryListAdapter extends BaseAdapter {
     }
 
 }
+

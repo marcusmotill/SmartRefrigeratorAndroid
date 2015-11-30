@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -23,11 +24,13 @@ import butterknife.ButterKnife;
  * Created by marcusmotill on 11/28/15.
  */
 public class InventoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    @Bind(R.id.lvInventoryList)
-    ListView lvInvertoryList;
+    @Bind(R.id.rvInventoryList)
+    RecyclerView rvInvertoryList;
 
     @Bind(R.id.srlInventory)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    LinearLayoutManager llm;
 
     @Nullable
     @Override
@@ -35,8 +38,11 @@ public class InventoryFragment extends Fragment implements SwipeRefreshLayout.On
         View rootView = inflater.inflate(R.layout.inventory_fragment, null);
         ButterKnife.bind(this, rootView);
 
-        lvInvertoryList.setDividerHeight(0); //removing divider
-        lvInvertoryList.setDivider(null);    //removing divider
+        llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvInvertoryList.setLayoutManager(llm);
+        rvInvertoryList.setHasFixedSize(true);
+
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         getInventory();
@@ -49,7 +55,7 @@ public class InventoryFragment extends Fragment implements SwipeRefreshLayout.On
         query.findInBackground(new FindCallback<RefrigeratorObject>() {
             public void done(List<RefrigeratorObject> refrigeratorObjectList, ParseException e) {
                 mSwipeRefreshLayout.setRefreshing(false);
-                lvInvertoryList.setAdapter(new InventoryListAdapter(refrigeratorObjectList, getContext()));
+                rvInvertoryList.setAdapter(new InventoryListAdapter(refrigeratorObjectList, getContext()));
             }
         });
     }
