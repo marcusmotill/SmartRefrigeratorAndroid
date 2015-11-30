@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -47,11 +48,22 @@ public class InventoryListAdapter extends BaseAdapter {
 
         View rowView = inflater.inflate(R.layout.inventory_list_item, parent, false);
         TextView itemName = (TextView) rowView.findViewById(R.id.tvItemName);
+        ImageView thumbnail = (ImageView) rowView.findViewById(R.id.ivThumbnail);
 
         itemName.setText(refrigeratorObject.getItemName());
+        if (refrigeratorObject.getThumbnailName() != null)
+            thumbnail.setImageResource(getResourceId(refrigeratorObject.getThumbnailName(), "drawable", context.getPackageName()));
 
         return rowView;
     }
 
+    public int getResourceId(String pVariableName, String pResourcename, String pPackageName) {
+        try {
+            return context.getResources().getIdentifier(pVariableName, pResourcename, pPackageName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
 }

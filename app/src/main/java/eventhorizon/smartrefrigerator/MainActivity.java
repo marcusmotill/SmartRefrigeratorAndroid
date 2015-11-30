@@ -12,17 +12,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,13 +42,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
@@ -63,8 +72,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_inventory) {
+            fab.setVisibility(View.VISIBLE);
             getSupportFragmentManager().beginTransaction().replace(R.id.rlMainContainer, new InventoryFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_scan) {
+            fab.setVisibility(View.GONE);
             getSupportFragmentManager().beginTransaction().replace(R.id.rlMainContainer, new ScanFragment()).addToBackStack(null).commit();
         } else if (id == R.id.nav_share) {
 

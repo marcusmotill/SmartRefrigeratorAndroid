@@ -5,4 +5,34 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="thumbnails_array_resources">
+        <item>@drawable/iv_apple</item>
+        <item>@drawable/iv_banana</item>
+        <item>@drawable/iv_cake</item>
+        <item>@drawable/iv_carrot</item>
+        <item>@drawable/iv_cocktails</item>
+        <item>@drawable/iv_cupcake</item>
+        <item>@drawable/iv_fish</item>
+        <item>@drawable/iv_sandwich</item>
+        <item>@drawable/iv_steak</item>
+        <item>@drawable/iv_wheat</item>
+        <item>@drawable/iv_wine</item>
+    </string-array>
+
+    <string-array name="thumbnails_array_names">
+        <item>"iv_apple"</item>
+        <item>"iv_banana"</item>
+        <item>"iv_cake"</item>
+        <item>"iv_carrot"</item>
+        <item>"iv_cocktails"</item>
+        <item>"iv_cupcake"</item>
+        <item>"iv_fish"</item>
+        <item>"iv_sandwich"</item>
+        <item>"iv_steak"</item>
+        <item>"iv_wheat"</item>
+        <item>"iv_wine"</item>
+    </string-array>
+
+
 </resources>

@@ -19,4 +19,8 @@ public class RefrigeratorObject extends ParseObject {
     public String getQRCode() {
         return getString("QRCode");
     }
+
+    public String getThumbnailName() {
+        return getString("thumbnailName");
+    }
 }
