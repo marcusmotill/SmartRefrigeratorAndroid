@@ -24,5 +24,15 @@ public class QRCodeObject extends ParseObject {
         put("thumbnailName", thumbnailName);
     }
 
+    public String getItemName() {
+        return getString("itemName");
+    }
 
+    public String getQRCode() {
+        return getString("QRCode");
+    }
+
+    public String getThumbnailName() {
+        return getString("thumbnailName");
+    }
 }

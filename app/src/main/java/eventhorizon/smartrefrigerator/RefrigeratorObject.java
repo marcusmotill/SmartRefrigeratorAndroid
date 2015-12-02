@@ -23,4 +23,24 @@ public class RefrigeratorObject extends ParseObject {
     public String getThumbnailName() {
         return getString("thumbnailName");
     }
+
+    public void setItemName(String itemName) {
+        put("itemName", itemName);
+    }
+
+    public void setQRCode(String code) {
+        put("QRCode", code);
+    }
+
+    public void setThumbnailName(String thumbnailName) {
+        put("thumbnailName", thumbnailName);
+    }
+
+    public void setIsCustom(boolean isCustom) {
+        put("isCustom", isCustom);
+    }
+
+    public boolean isCustom() {
+        return getBoolean("isCustom");
+    }
 }

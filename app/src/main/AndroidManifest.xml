@@ -40,6 +40,10 @@
         <activity
             android:name=".ThumbnailSelectorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".AddToRefrigeratorActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
